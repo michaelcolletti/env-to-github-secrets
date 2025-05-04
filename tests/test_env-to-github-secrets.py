@@ -8,7 +8,6 @@ import src/env_to_github_secrets as src_env_to_github_secrets
         ),
         name="str",
     ),
-)
 
 
 # create test cases for the function env_to_github_secrets
