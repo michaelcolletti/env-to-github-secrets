@@ -1,4 +1,4 @@
-import src/env_to_github_secrets as env_to_github_secrets
+import env_to_github_secrets as env_to_github_secrets
 # create test cases for the function src/env_to_github_secrets
 def test_get_env_vars():
     # test with a .env file
