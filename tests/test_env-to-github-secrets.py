@@ -1,12 +1,15 @@
 from src import env_to_github_secrets
 
+    # Example placeholder for aws_ses import or definition
+    from aws_cdk import aws_ses
+
     filter=aws_ses.CfnReceiptFilter.FilterProperty( # Required
         ip_filter=aws_ses.CfnReceiptFilter.IpFilterProperty( # Required
             cidr="str", # Required
             policy="str", # Required
         ),
         name="str",
-    ),
+    )
 
 
 # create test cases for the function env_to_github_secrets
