@@ -1,5 +1,7 @@
 # env-to-github-secrets
 
+[![Python Build Test and Deploy](https://github.com/michaelcolletti/env-to-github-secrets/actions/workflows/python-app-cicd.yml/badge.svg)](https://github.com/michaelcolletti/env-to-github-secrets/actions/workflows/python-app-cicd.yml)
+
 A simple CLI tool that converts local `.env` files to GitHub Secrets, improving your application's security by moving sensitive environment variables from unencrypted local files to GitHub's secure secrets storage.
 
 ## Features
