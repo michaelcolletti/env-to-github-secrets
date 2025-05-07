@@ -3,8 +3,7 @@ requests>=2.25.0
 python-dotenv>=0.19.0
 pynacl>=1.4.0
 keyring>=23.0.0
-black
-pytest
-pytest-cov
-pylint
-
+black>=24.4.0
+pytest>=8.2.0
+pytest-cov>=5.0.0
+pylint>=3.2.0

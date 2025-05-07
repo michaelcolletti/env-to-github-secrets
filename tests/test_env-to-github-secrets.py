@@ -1,6 +1,4 @@
-import env_to_github_secrets as env_to_github_secrets
-import env_to_github_secrets
-import src/env_to_github_secrets as src_env_to_github_secrets
+from src import env_to_github_secrets
 
     filter=aws_ses.CfnReceiptFilter.FilterProperty( # Required
         ip_filter=aws_ses.CfnReceiptFilter.IpFilterProperty( # Required
