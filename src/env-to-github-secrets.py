@@ -209,7 +209,7 @@ def list_secrets(github_repo):
         "Accept": "application/vnd.github.v3+json",
         "Authorization": f"token {token}",
     }
-
+    response = requests.get(url, headers=headers)
     response = requests.get(url, headers=headers)
 
     if response.status_code != 200:
@@ -233,3 +233,44 @@ def list_secrets(github_repo):
 
 if __name__ == "__main__":
     cli()
+
+    @cli.command()
+    @click.option(
+        "--env-file", "-e", default=".env", help="Path to the .env file (default: .env)"
+    )
+    @click.option(
+        "--colab-file",
+        "-c",
+        default="colab_env.py",
+        help="Output file for Colab (default: colab_env.py)",
+    )
+    def upload_to_colab(env_file, colab_file):
+        """Upload .env variables to Google Colab as a Python file"""
+        # Check if .env file exists
+        env_path = Path(env_file)
+        if not env_path.exists():
+            click.echo(f"Error: {env_file} not found")
+            sys.exit(1)
+
+        # Read .env file
+        env_vars = dotenv_values(env_file)
+        if not env_vars:
+            click.echo(f"No variables found in {env_file}")
+            sys.exit(1)
+
+        click.echo(f"Found {len(env_vars)} variables in {env_file}")
+
+        # Create a Python file for Colab
+        try:
+            with open(colab_file, "w") as f:
+                f.write(
+                    "# Auto-generated file for setting environment variables in Google Colab\n"
+                )
+                f.write("import os\n\n")
+                for name, value in env_vars.items():
+                    sanitized_name = name.upper().replace("-", "_")
+                    f.write(f"os.environ['{sanitized_name}'] = '{value}'\n")
+            click.echo(f"Environment variables written to {colab_file}")
+        except Exception as e:
+            click.echo(f"Error writing to {colab_file}: {e}")
+            sys.exit(1)

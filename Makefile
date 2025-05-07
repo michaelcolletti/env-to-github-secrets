@@ -17,7 +17,7 @@ lint:
 	-pylint --disable=R,C src/main.py --ignore-patterns=test_?.py 
 
 run:
-	python src/*.py
+	python src/main.py
 
 clean:
 	rm -rf __pycache__/
