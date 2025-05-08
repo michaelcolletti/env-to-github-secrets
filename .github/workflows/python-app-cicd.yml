@@ -82,12 +82,16 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
+    - name: Validate Docker Login
+      run: |
+        docker info
+        
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/createpw-cli:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/env-to-github-secrets:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
         
