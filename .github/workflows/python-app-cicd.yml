@@ -39,10 +39,61 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics        
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Get Latest Tag
+      id: get_latest_tag
+      uses: actions/github-script@v6
+      with:
+        script: |
+          if (github && github.repos && typeof github.repos.listTags === 'function') {
+            const tags = await github.repos.listTags({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+    
+            if (tags.data.length === 0) {
+              core.setOutput('tag', 'v0.0.0'); // Default to v0.0.0 if no tags exist
+            } else {
+              core.setOutput('tag', tags.data[0].name);
+            }
+          } else {
+            core.setOutput('tag', 'v0.0.0'); // Fallback if listTags is unavailable
+          }      
+    - name: Increment Tag
+      id: increment_tag
+      run: |
+        # Extract the latest tag
+        latest_tag=${{ steps.get_latest_tag.outputs.tag }}
+        # Increment the version (patch level as an example)
+        IFS='.' read -ra VERSION <<< "${latest_tag#v}"
+        major=${VERSION[0]}
+        minor=${VERSION[1]}
+        patch=${VERSION[2]}
+        patch=$((patch + 1))
+        new_tag="v${major}.${minor}.${patch}"
+        echo "new_tag=${new_tag}" >> $GITHUB_ENV
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
-   
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.DOCKER_USERNAME }}/createpw-cli:latest
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
+        
+    # - name: Set up Docker Buildx
+    #   uses: docker/setup-buildx-action@v2
+  
     # - name: Log in to Docker Hub
     #   uses: docker/login-action@v2
     #   with:
@@ -51,11 +102,11 @@ jobs:
     # - name: Validate Docker Login
     #   run: |
     #     docker info
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v3
-      with:
-        context: .
-        push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/env-to-github-secrets:latest
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache
+    # - name: Build and push Docker image
+    #   uses: docker/build-push-action@v3
+    #   with:
+    #     context: .
+    #     push: true
+    #     tags: ${{ secrets.DOCKER_USERNAME }}/env-to-github-secrets:latest
+    #     cache-from: type=local,src=/tmp/.buildx-cache
+    #     cache-to: type=local,dest=/tmp/.buildx-cache
