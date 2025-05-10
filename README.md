@@ -1,8 +1,11 @@
+Here is the updated `README.md`:
+
+```markdown
 # env-to-github-secrets
 
-[![Python Build Test and Deploy](https://github.com/michaelcolletti/env-to-github-secrets/actions/workflows/python-app-cicd.yml/badge.svg)](https://github.com/michaelcolletti/env-to-github-secrets/actions/workflows/python-app-cicd.yml)
+[![Python Build Test and Deploy](https://github.com/michaelcolletti/env-to-github-secrets/actions/workflows/python-app-cicd.yml/badge.svg)](https://github.com/michaelcolletti/env-to-github-secrets/actions)
 
-A simple CLI tool that converts local `.env` files to GitHub Secrets, improving your application's security by moving sensitive environment variables from unencrypted local files to GitHub's secure secrets storage.
+A simple CLI tool that converts local `.env` files to GitHub Secrets, improving your application's security by moving sensitive environment variables from unencrypted local files to GitHub's secure storage.
 
 ## Features
 
@@ -12,6 +15,33 @@ A simple CLI tool that converts local `.env` files to GitHub Secrets, improving 
 - Automatically formats environment variable names to comply with GitHub Secret naming rules
 
 ## Installation
+
+### Primary Installation: Using Makefile
+
+To install the project using the Makefile process:
+
+1. Clone this repository:
+   ```
+   git clone https://github.com/michaelcolletti/env-to-github-secrets.git
+   cd env-to-github-secrets
+   ```
+
+2. Build and install the project:
+   ```
+   make install
+   ```
+
+   This will automatically install the required dependencies and set up the tool for use.
+
+3. To clean up build artifacts (optional):
+   ```
+   make clean
+   ```
+
+### Optional Installation: Manual Steps
+
+<details>
+<summary>Click to view manual installation process</summary>
 
 1. Clone this repository:
    ```
@@ -28,6 +58,8 @@ A simple CLI tool that converts local `.env` files to GitHub Secrets, improving 
    ```
    chmod +x env-to-github-secrets.py
    ```
+
+</details>
 
 ## Usage
 
@@ -68,9 +100,7 @@ To view existing GitHub Secrets in a repository:
 ## Important Notes
 
 1. GitHub Secret names can only include uppercase letters, numbers, and underscores. The tool automatically converts any hyphens to underscores and makes all secret names uppercase.
-
 2. Your GitHub PAT is stored securely in your system's keyring, not in any file.
-
 3. The tool requires the following permissions:
    - Read access to your local `.env` file
    - Write access to GitHub Secrets for the specified repository (via your PAT)
@@ -87,10 +117,13 @@ To view existing GitHub Secrets in a repository:
 
 ## Security Considerations
 
-- Your GitHub PAT is stored in your system's secure keyring, not in plaintext
-- The tool uses GitHub's recommended encryption method for creating secrets
-- No sensitive data is logged to the console
+- Your GitHub PAT is stored in your system's secure keyring, not in plaintext.
+- The tool uses GitHub's recommended encryption method for creating secrets.
+- No sensitive data is logged to the console.
 
 ## License
 
 [MIT License](LICENSE)
+```
+
+You can copy and paste this into your `README.md` file. Let me know if you need further assistance!
