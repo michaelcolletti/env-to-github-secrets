@@ -129,4 +129,4 @@ bash
 
     Inspired by the need for better security practices in managing .env files.
     
-🌟 Enjoy a simpler, more secure way to manage GitHub Secrets! Stay tuner for a Colab version ![Google Colab](https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg)! 
+🌟 Enjoy a simpler, more secure way to manage GitHub Secrets! Stay tuner for a Colab version!
