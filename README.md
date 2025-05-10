@@ -124,24 +124,9 @@ bash
     All secrets uploaded to GitHub are encrypted using GitHub's secure API methods.
     The tool avoids logging any sensitive information to the console.
 
-📜 License
 
-This project is licensed under the MIT License.
-❤️ Contributing
-
-Contributions are welcome! If you'd like to contribute, feel free to:
-
-    Fork the repository.
-    Create a new branch.
-    Submit a pull request.
-
-Let's make this tool even better together! 🤝
-📧 Support
-
-If you encounter any issues or have questions, please open an issue or contact me directly via GitHub.
 ⭐ Acknowledgments
 
     Inspired by the need for better security practices in managing .env files.
-    Thanks to the open-source community for valuable feedback and contributions!
-
-🌟 Enjoy a simpler, more secure way to manage GitHub Secrets!
+    
+🌟 Enjoy a simpler, more secure way to manage GitHub Secrets! Stay tuner for a Colab version ![Google Colab](https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg)! 
