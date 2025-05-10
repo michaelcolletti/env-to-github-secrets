@@ -5,6 +5,7 @@ from dotenv import dotenv_values
 
 cli = click.Group()
 
+
 @cli.command()
 @click.option(
     "--env-file", "-e", default=".env", help="Path to the .env file (default: .env)"

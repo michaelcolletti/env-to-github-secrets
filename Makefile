@@ -6,7 +6,7 @@ init:
 	python -m venv .venv &&\
 		source .venv/bin/activate
 test:
-	python -m pytest -vv tests/*.py && flake8 --max-line-length=120 --ignore=E501,E203,E266,E402,W503,W504,W605 --exclude=.venv,build,dist,*.egg-info,*.egg,*.pyc,*.pyo,*.pyd --max-complexity=10 --max-line-length=120 src/main.py
+	python -m pytest -vv tests/test_env-to-github-secrets.py && flake8 --max-line-length=120 --ignore=E501,E203,E266,E402,W503,W504,W605 --exclude=.venv,build,dist,*.egg-info,*.egg,*.pyc,*.pyo,*.pyd --max-complexity=10 --max-line-length=120 src/main.py
 
 refactor: format lint
 
