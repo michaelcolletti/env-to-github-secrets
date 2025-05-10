@@ -1,129 +1,147 @@
-Here is the updated `README.md`:
-
-```markdown
-# env-to-github-secrets
+# ✨ env-to-github-secrets
 
 [![Python Build Test and Deploy](https://github.com/michaelcolletti/env-to-github-secrets/actions/workflows/python-app-cicd.yml/badge.svg)](https://github.com/michaelcolletti/env-to-github-secrets/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Python Version](https://img.shields.io/badge/python-3.6%2B-blue)](https://www.python.org/downloads/)
 
-A simple CLI tool that converts local `.env` files to GitHub Secrets, improving your application's security by moving sensitive environment variables from unencrypted local files to GitHub's secure storage.
+A ⚡ powerful yet simple CLI tool to **convert `.env` files into GitHub Secrets**, ensuring your sensitive environment variables are securely managed inside GitHub repositories. No more unencrypted `.env` files lying around! 🚀
 
-## Features
+---
 
-- Reads `.env` files and creates GitHub Secrets for each variable
-- Securely stores GitHub Personal Access Token in your system's keyring
-- Supports listing existing GitHub Secrets in a repository
-- Automatically formats environment variable names to comply with GitHub Secret naming rules
+## 🎯 Features
 
-## Installation
+- 🔒 **Securely** upload `.env` variables as GitHub Secrets.
+- 🔑 Automatically store your **GitHub Personal Access Token (PAT)** in your system's keyring.
+- 📋 **List existing GitHub Secrets** in a repository.
+- 🛠️ Automatically format environment variable names to comply with GitHub's secret naming conventions.
+- 💾 Uses GitHub's **recommended encryption** methods for secrets.
 
-### Primary Installation: Using Makefile
+---
 
-To install the project using the Makefile process:
+## 🚀 Quick Start
 
-1. Clone this repository:
-   ```
-   git clone https://github.com/michaelcolletti/env-to-github-secrets.git
-   cd env-to-github-secrets
-   ```
+### 🛠️ Installation
 
-2. Build and install the project:
-   ```
-   make install
-   ```
-
-   This will automatically install the required dependencies and set up the tool for use.
-
-3. To clean up build artifacts (optional):
-   ```
-   make clean
-   ```
-
-### Optional Installation: Manual Steps
-
-<details>
-<summary>Click to view manual installation process</summary>
+#### Option 1: **Recommended - Using Makefile**
 
 1. Clone this repository:
-   ```
+   ```bash
    git clone https://github.com/michaelcolletti/env-to-github-secrets.git
    cd env-to-github-secrets
-   ```
 
-2. Install the required dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+    Build and install the project:
+    bash
 
-3. Make the script executable:
-   ```
-   chmod +x env-to-github-secrets.py
-   ```
+make install
+
+🎉 Done! Everything is ready to go.
+
+(Optional) Clean up build artifacts:
+bash
+
+    make clean
+
+Option 2: Manual Installation
+<details> <summary>Click to view manual installation steps</summary>
+
+    Clone this repository:
+    bash
+
+git clone https://github.com/michaelcolletti/env-to-github-secrets.git
+cd env-to-github-secrets
+
+Install the required dependencies:
+bash
+
+pip install -r requirements.txt
+
+Make the script executable:
+bash
+
+    chmod +x env-to-github-secrets.py
 
 </details>
+🖥️ Usage
+1️⃣ Initial Setup
 
-## Usage
+Before using this tool, you need to securely store your GitHub Personal Access Token (PAT):
+bash
 
-### Initial Setup
-
-Before using the tool, you need to store your GitHub Personal Access Token (PAT):
-
-```
 ./env-to-github-secrets.py setup
-```
 
-You'll be prompted to enter your GitHub PAT, which will be securely stored in your system's keyring.
+You'll be prompted to enter your GitHub PAT. It will be securely stored in your system's keyring.
 
-> **Note**: Create a PAT with the `repo` scope at https://github.com/settings/tokens
+    Note: You can generate a PAT with repo scope at GitHub Developer Settings.
 
-### Upload .env Variables as GitHub Secrets
+2️⃣ Upload .env Variables as Secrets
 
-To upload all variables from a `.env` file to GitHub Secrets:
+To upload all variables from a .env file to GitHub Secrets:
+bash
 
-```
-./env-to-github-secrets.py upload --github-repo michaelcolletti/repository
-```
+./env-to-github-secrets.py upload --github-repo <owner/repo>
 
-By default, the tool looks for a `.env` file in the current directory. You can specify a different file:
+By default, it looks for a .env file in the current directory. To specify a different file:
+bash
 
-```
-./env-to-github-secrets.py upload --env-file .env.production --github-repo michaelcolletti/repository
-```
+./env-to-github-secrets.py upload --env-file <path-to-env-file> --github-repo <owner/repo>
 
-### List Existing GitHub Secrets
+3️⃣ List Existing GitHub Secrets
 
-To view existing GitHub Secrets in a repository:
+To view all secrets in a repository:
+bash
 
-```
-./env-to-github-secrets.py list-secrets --github-repo michaelcolletti/repository
-```
+./env-to-github-secrets.py list-secrets --github-repo <owner/repo>
 
-## Important Notes
+📚 Documentation
+📝 Important Notes
 
-1. GitHub Secret names can only include uppercase letters, numbers, and underscores. The tool automatically converts any hyphens to underscores and makes all secret names uppercase.
-2. Your GitHub PAT is stored securely in your system's keyring, not in any file.
-3. The tool requires the following permissions:
-   - Read access to your local `.env` file
-   - Write access to GitHub Secrets for the specified repository (via your PAT)
+    Secret Naming Rules:
+        Secret names can only include uppercase letters, numbers, and underscores (_).
+        Hyphens (-) are automatically converted to underscores (_) and all names are capitalized.
 
-## Requirements
+    Permissions Required:
+        Read access to your local .env file.
+        Write access to GitHub Secrets for the specified repository (via your PAT).
 
-- Python 3.6+
-- Required packages (see requirements.txt):
-  - click
-  - requests
-  - python-dotenv
-  - pynacl
-  - keyring
+    Security First:
+        Your GitHub PAT is stored securely in your system's keyring (not in plaintext).
+        The tool uses encryption recommended by GitHub for creating secrets.
+        No sensitive data is logged to the console.
 
-## Security Considerations
+🔧 Requirements
 
-- Your GitHub PAT is stored in your system's secure keyring, not in plaintext.
-- The tool uses GitHub's recommended encryption method for creating secrets.
-- No sensitive data is logged to the console.
+    Python 3.6+
+    Required Python packages (see requirements.txt):
+        click
+        requests
+        python-dotenv
+        pynacl
+        keyring
 
-## License
+🔒 Security Considerations
 
-[MIT License](LICENSE)
-```
+    Your GitHub PAT is securely stored in your system's keyring, not in plaintext.
+    All secrets uploaded to GitHub are encrypted using GitHub's secure API methods.
+    The tool avoids logging any sensitive information to the console.
 
-You can copy and paste this into your `README.md` file. Let me know if you need further assistance!
+📜 License
+
+This project is licensed under the MIT License.
+❤️ Contributing
+
+Contributions are welcome! If you'd like to contribute, feel free to:
+
+    Fork the repository.
+    Create a new branch.
+    Submit a pull request.
+
+Let's make this tool even better together! 🤝
+📧 Support
+
+If you encounter any issues or have questions, please open an issue or contact me directly via GitHub.
+⭐ Acknowledgments
+
+    Inspired by the need for better security practices in managing .env files.
+    Thanks to the open-source community for valuable feedback and contributions!
+
+🌟 Enjoy a simpler, more secure way to manage GitHub Secrets!
