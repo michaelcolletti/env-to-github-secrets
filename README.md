@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.6%2B-blue)](https://www.python.org/downloads/)
 
-A ⚡ powerful yet simple CLI tool to **convert `.env` files into GitHub Secrets**, ensuring your sensitive environment variables are securely managed inside GitHub repositories. No more unencrypted `.env` files lying around! 🚀
+A ⚡ powerful yet simple CLI tool to **convert `.env` files into GitHub Secrets**, ensuring your sensitive environment variables are securely managed for GitHub repositories. No more unencrypted `.env` files lying around! 🚀
 
 ---
 
