@@ -2,50 +2,46 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Commands
+## Common Development Commands
 
-**Development Commands:**
-- `make install` - Install dependencies from requirements.txt
-- `make test` - Run pytest tests for spotifygen.py and spotifygenCLI.py
-- `make lint` - Run pylint on test files  
-- `make format` - Format source code with black
-- `make clean` - Remove cache directories and build artifacts
-- `make all` - Run install, lint, test, and format in sequence
+### Installation and Setup
+- `make install` - Install dependencies (recommended method)
+- `pip install -r requirements.txt` - Manual dependency installation
 
-**Running the Application:**
-- CLI: `python src/spotifygenCLI.py artist-list.txt`
-- Interactive: `python src/spotifygen.py` (prompts for file path)
+### Testing and Quality
+- `make test` - Run pytest tests with coverage and flake8 linting
+- `python -m pytest -vv tests/*.py` - Run tests only
+- `make format` - Format code using black
+- `make lint` - Run pylint on main.py
 
-## Architecture
+### Development Workflow
+- `make all` - Complete workflow: install, format, lint, test, run
+- `make clean` - Remove build artifacts and cache files
+- `python src/main.py` or `python src/env-to-github-secrets.py` - Run the CLI tool
 
-SpotifyGen creates Spotify playlists from artist lists with two main execution paths:
+## Project Architecture
 
-**Core Modules:**
-- `src/spotifygen.py` - Interactive script version with user input prompts
-- `src/spotifygenCLI.py` - Command-line interface with argument parsing
-- `src/main.py` - Alternative interactive entry point (legacy)
+This is a CLI tool that converts `.env` files to GitHub Secrets using the GitHub API. The main application logic is duplicated in two files:
 
-**Key Functions (shared logic):**
-- `read_artists_from_file()` - Parse artist names from text files
-- `find_artist_id()` - Search Spotify API for artist matches  
-- `get_top_tracks()` - Retrieve popular tracks by artist
-- `get_deep_cuts()` - Find lesser-known tracks from album catalogs
-- `create_playlist()` - Generate new Spotify playlists
-- `add_tracks_to_playlist()` - Batch add tracks (handles 100-track API limit)
+### Core Components
+- **src/main.py** and **src/env-to-github-secrets.py** - Identical CLI implementations using Click framework
+- **Core functions**:
+  - `encrypt_secret()` - Encrypts values using GitHub's public key with PyNaCl
+  - `get_repo_public_key()` - Fetches repository public key from GitHub API
+  - `create_or_update_secret()` - Creates/updates secrets via GitHub API
+  - `store_github_token()` / `get_github_token()` - Secure token storage using system keyring
 
-**Data Flow:**
-1. Read artist names from text file (one per line)
-2. Search Spotify API for each artist ID
-3. Collect popular tracks and deep cuts in parallel
-4. Create two playlists: "Most Popular Tracks" and "Deep Cuts Collection"
-5. Batch upload tracks to playlists (respecting API limits)
+### CLI Commands
+- `setup` - Configure GitHub Personal Access Token (stored in system keyring)
+- `upload` - Upload .env variables as GitHub Secrets
+- `list-secrets` - List existing GitHub Secrets in a repository
 
-**Authentication:**
-Requires environment variables: `SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REDIRECT_URI`
-Uses SpotifyOAuth with scopes: "playlist-modify-public user-library-read"
+### Security Features
+- GitHub PAT stored securely in system keyring (not plaintext)
+- Secrets encrypted using GitHub's recommended PyNaCl encryption
+- Environment variable names auto-formatted to GitHub naming conventions (uppercase, underscores only)
 
-**Rate Limiting:**
-- 1-second delays between artist processing
-- 0.1-second delays for track metadata requests  
-- Batches track uploads in groups of 100 (Spotify API limit)
-- Limits album scanning to 5 albums per artist
+### Testing
+- Uses pytest with coverage reporting
+- Test configuration in pytest.ini
+- Tests are incomplete/placeholder in current state
