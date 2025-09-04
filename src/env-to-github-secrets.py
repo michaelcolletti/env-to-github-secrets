@@ -7,13 +7,12 @@ helping improve security by moving sensitive data from local unencrypted files
 to GitHub's secure secrets storage.
 """
 
-import os
 import sys
 import requests
 import base64
 import json
 from pathlib import Path
-from nacl import encoding, public
+from pynacl import encoding, public
 import click
 import keyring
 import getpass
