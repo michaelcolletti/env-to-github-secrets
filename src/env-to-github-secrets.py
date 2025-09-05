@@ -12,7 +12,7 @@ import requests
 import base64
 import json
 from pathlib import Path
-from pynacl import encoding, public
+from nacl import encoding, public
 import click
 import keyring
 import getpass
